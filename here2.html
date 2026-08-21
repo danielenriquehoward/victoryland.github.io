@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Victoryland Website</title>
+        <link rel="stylesheet" href="styles.css">
+        <style>
+
+            
+        </style>
+    </head>
+
+    <div style="background-color: #fff; padding-top: 10px; padding-bottom: 10px; width: 200px; text-align: center;">
+        <a href="./index.html">Go back</a>
+        <a style="padding-left: 10px;" href="./shows.html">Go shows</a>
+    </div>
+
+    <div style="width: 100vw; height: calc(100vh - 62px); display: flex; justify-content: center; position: absolute; align-items: center;">
+        <h1 class="bigh1" style="color: #33FF57;">Victoryland</h1>
+    </div>
+    
+    
+    </body>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Define an array of hex or named colors
+            const colors = ["#FF5733", "#33FF57", "#3357FF", 
+                            "#F3FF33", "#FF33F3",  "#3357FF", 
+                            "#F3FF33", "#FF33F3", "#33FF57", 
+                            "#3357FF","#3357FF", "#F3FF33",
+                            "#3357FF", "#F3FF33", "#FF33F3",
+                            ];
+            const colors2 = ["#FF5733", "#FF5733", "#3357FF",
+                            "#F3FF33", "#FF33F3", "#FF5733",
+                            "#3357FF", "#F3FF33", "#FF33F3",
+                            "#FF33F3",  "#3357FF", "#F3FF33", 
+                            "#FF5733", "#FF5733", "#3357FF"
+                            ];
+            let currentIndex = 0;
+
+            const intervalA = 500;
+            const intervalB = 10;
+
+            let intervalACount = 0;
+
+            let currentInterval = intervalA;
+
+            // 2. Set an interval to run every 5000 milliseconds (5 seconds)
+            function task() {
+
+                // Change the body background color
+                document.body.style.backgroundColor = colors[currentIndex];
+                document.querySelector('.bigh1').style.color = colors2[currentIndex];
+                
+                // Move to the next color, resetting to 0 when reaching the end
+                currentIndex = (currentIndex + 1) % colors.length;
+
+                if (intervalACount > 0) {
+                    currentInterval = intervalA;
+                    intervalACount++;
+                    if (intervalACount > 3) {
+                        intervalACount = 0;
+                    }
+                }
+                else if (hasThirtyPercentChance()) {
+                    currentInterval = intervalA;
+                    intervalACount = 1;
+                }
+                else {
+                    currentInterval = intervalB;
+                }
+
+                setTimeout(task, currentInterval);
+
+            };
+
+            setTimeout(task, currentInterval);
+
+            function hasThirtyPercentChance() {
+                return Math.random() < 0.01;
+            }
+        });
+    </script>
+</html>
